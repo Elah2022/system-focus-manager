@@ -23,24 +23,24 @@ System Focus Manager is a desktop application that helps you maintain focus by:
 
 ## 📸 Screenshots
 
-### Main Interface
+<h3 align="center">Clean and intuitive dashboard to manage your focus sessions</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/main-interface.png" alt="Main Interface - System Focus Manager Dashboard">
+  <img src="system_focus_manager/docs/screenshots/main-interface.png">
 </p>
 
-### Focus Mode Active
+<h3 align="center">Focus Mode with selective app blocking and browser control</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/focus-mode.png" alt="Focus Mode - Selective App Blocking">
+  <img src="system_focus_manager/docs/screenshots/focus-mode.png">
 </p>
 
-### Ultra Focus Mode Configuration
+<h3 align="center">Ultra Focus configuration - lock yourself to one domain for maximum concentration</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/ultra-focus.png" alt="Ultra Focus - Exam-Grade Lockdown">
+  <img src="system_focus_manager/docs/screenshots/ultra-focus.png">
 </p>
 
-### Productivity Statistics
+<h3 align="center">Track your productivity with detailed statistics and session history</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/statistics.png" alt="Statistics Dashboard - Track Your Focus Sessions">
+  <img src="system_focus_manager/docs/screenshots/statistics.png">
 </p>
 
 
