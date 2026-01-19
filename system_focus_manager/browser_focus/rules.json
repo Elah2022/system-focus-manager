@@ -1,0 +1,31 @@
+{
+  "mode_whitelists": {
+    "focus": [
+      "google.com",
+      "stackoverflow.com",
+      "github.com",
+      "chat.openai.com",
+      "claude.ai",
+      "docs.python.org",
+      "developer.mozilla.org",
+      "reactjs.org"
+    ],
+    "gaming": [
+      "google.com",
+      "youtube.com",
+      "twitch.tv",
+      "steam.com",
+      "reddit.com"
+    ],
+    "relax": []
+  },
+  "global_exceptions": [
+    "localhost",
+    "127.0.0.1"
+  ],
+  "config": {
+    "debugging_port": 9222,
+    "monitoring_interval_seconds": 10,
+    "show_notifications": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "_comment": "strict_mode: Only controls whether a PIN is required to deactivate. App and website monitoring is always active.",
+  "name": "Focus",
+  "icon": "🎯",
+  "strict_mode": true,
+  "close": [
+    "CapCut.exe",
+    "Telegram.exe",
+    "Jellyfin.Windows.Tray.exe",
+    "GeForceNOW.exe"
+  ],
+  "allowed_apps": [
+    "Obsidian.exe",
+    "brave.exe",
+    "Code.exe",
+    "notepad.exe",
+    "msedge.exe",
+    "chrome.exe"
+  ],
+  "open": [
+    {
+      "name": "chrome",
+      "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "args": [
+        "--remote-debugging-port=9222",
+        "--user-data-dir=%LOCALAPPDATA%\\ChromeDebugProfile"
+      ]
+    }
+  ],
+  "ultra_focus_settings": {},
+  "whitelist_enabled": false
+}

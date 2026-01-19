@@ -1,0 +1,63 @@
+{
+  "_comment": "Ultra Focus Mode: Extreme concentration with total lockdown. One browser, one domain, no escape routes.",
+  "name": "Ultra Focus",
+  "icon": "🔐",
+  "strict_mode": true,
+  "ultra_focus_settings": {
+    "locked_domain": "github.com",
+    "selected_browser": "chrome",
+    "block_all_shortcuts": true,
+    "require_pin_to_close_app": true,
+    "log_escape_attempts": true,
+    "allow_subdomain_navigation": true
+  },
+  "close": [],
+  "allowed_apps": [
+    "msedge.exe",
+    "brave.exe",
+    "chrome.exe",
+    "notepad.exe"
+  ],
+  "open": [
+    {
+      "name": "chrome",
+      "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "args": [
+        "--remote-debugging-port=9222",
+        "--remote-allow-origins=*",
+        "--user-data-dir=%LOCALAPPDATA%\\ChromeDebugProfile",
+        "--no-first-run",
+        "--no-default-browser-check",
+        "--disable-sync",
+        "--noerrdialogs"
+      ]
+    },
+    {
+      "name": "brave",
+      "path": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+      "args": [
+        "--remote-debugging-port=9223",
+        "--remote-allow-origins=*",
+        "--user-data-dir=%LOCALAPPDATA%\\BraveDebugProfile",
+        "--no-first-run",
+        "--no-default-browser-check",
+        "--disable-sync",
+        "--noerrdialogs"
+      ]
+    },
+    {
+      "name": "edge",
+      "path": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe",
+      "args": [
+        "--remote-debugging-port=9224",
+        "--remote-allow-origins=*",
+        "--user-data-dir=%LOCALAPPDATA%\\EdgeDebugProfile",
+        "--no-first-run",
+        "--no-default-browser-check",
+        "--disable-sync",
+        "--noerrdialogs"
+      ]
+    }
+  ],
+  "message": "🔐 Ultra Focus activado - Concentración máxima garantizada"
+}

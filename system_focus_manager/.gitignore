@@ -1,0 +1,44 @@
+# Logs
+*.log
+logs/
+
+# Base de datos (puede contener información personal de uso)
+*.db
+data/
+
+# Archivos de configuración local que pueden contener PINs
+system_focus_manager/pin_hash.txt
+
+# Cache de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Build artifacts
+build/
+dist/
+*.spec
+
+# Virtual environment
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+.claude/
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Archivos temporales
+*.tmp
+*.temp
+
+# Node modules (si usas npm para algo)
+node_modules/
+
+# Windows problematic files
+nul
