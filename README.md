@@ -1,4 +1,4 @@
-# 🎯 System Focus Manager
+<h1 align="center">🎯 System Focus Manager</h1>
 
 > **Copyright © 2025 Manuela Riascos Hurtado**
 > A powerful productivity tool to help you stay focused by blocking distractions on Windows.
@@ -23,10 +23,25 @@ System Focus Manager is a desktop application that helps you maintain focus by:
 
 ## 📸 Screenshots
 
-![Main Interface](system_focus_manager/docs/screenshots/main-interface.png)
-![Focus Mode](system_focus_manager/docs/screenshots/focus-mode.png)
-![Ultra Focus](system_focus_manager/docs/screenshots/ultra-focus.png)
-![Statistics](system_focus_manager/docs/screenshots/statistics.png)
+### Main Interface
+<p align="center">
+  <img src="system_focus_manager/docs/screenshots/main-interface.png" alt="Main Interface - System Focus Manager Dashboard">
+</p>
+
+### Focus Mode Active
+<p align="center">
+  <img src="system_focus_manager/docs/screenshots/focus-mode.png" alt="Focus Mode - Selective App Blocking">
+</p>
+
+### Ultra Focus Mode Configuration
+<p align="center">
+  <img src="system_focus_manager/docs/screenshots/ultra-focus.png" alt="Ultra Focus - Exam-Grade Lockdown">
+</p>
+
+### Productivity Statistics
+<p align="center">
+  <img src="system_focus_manager/docs/screenshots/statistics.png" alt="Statistics Dashboard - Track Your Focus Sessions">
+</p>
 
 
 ---
