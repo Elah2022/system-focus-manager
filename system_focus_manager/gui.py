@@ -795,8 +795,27 @@ class FocusManagerGUI(QMainWindow):
         whitelist_enabled = mode_data.get('whitelist_enabled', False)
         allowed_apps = mode_data.get('allowed_apps', [])
 
-        # Build message based on whether whitelist is enabled
-        if whitelist_enabled and allowed_apps:
+        # Build message based on mode type
+        # ULTRA FOCUS MODE: Special message emphasizing extreme concentration
+        if mode_id == 'ultra_focus':
+            ultra_settings = mode_data.get('ultra_focus_settings', {})
+            locked_domain = ultra_settings.get('locked_domain', '')
+            selected_browser = ultra_settings.get('selected_browser', 'Chrome')
+
+            if lang.get_current_language() == 'es':
+                message = (
+                    f" Concentración Extrema \n\n"
+                    f"Dominio permitido: {locked_domain or 'No configurado'}\n"
+                    f"Navegador: {selected_browser.capitalize()}"
+                )
+            else:
+                message = (
+                    f" Extreme Concentration \n\n"
+                    f"Allowed domain: {locked_domain or 'Not configured'}\n"
+                    f"Browser: {selected_browser.capitalize()}"
+                )
+        # WHITELIST MODE: Show allowed apps
+        elif whitelist_enabled and allowed_apps:
             # WHITELIST MODE: Show allowed apps instead of apps to close/open
             allowed_names = ", ".join([app.replace('.exe', '') for app in allowed_apps])
             if len(allowed_names) > 50:

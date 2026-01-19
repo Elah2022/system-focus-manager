@@ -233,6 +233,10 @@ class ProcessManager:
                 'cmd.exe', 'powershell.exe', 'pwsh.exe', 'bash.exe', 'sh.exe',
                 'conhost.exe', 'python.exe', 'pythonw.exe', 'py.exe', 'pyw.exe', 'focusmanager.exe',
 
+                # Recording tools (temporary exception)
+                'recording toolbar.exe', 'recordingtoolbar.exe', 'obs64.exe', 'obs32.exe', 'obs.exe',
+                'snippingtool.exe', 'screensketch.exe',  # Windows Snipping Tool and Snip & Sketch
+
                 # Windows System UI and Infrastructure (have visible windows but are system processes)
                 'sihost.exe',                    # Shell Infrastructure Host
                 'ctfmon.exe',                    # Text Services Framework

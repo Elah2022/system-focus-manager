@@ -41,7 +41,8 @@ System Focus Manager is a desktop application that helps you maintain focus by:
 ### 📹 Ultra Focus in Action
 ![Ultra Focus Demo](docs/demos/ultra-focus-demo.gif)
 
-> **Video Tutorial**: [Watch on YouTube](LINK_A_TU_VIDEO_AQUI)
+[![Ultra Focus Mode – Exam-Grade Lockdown Demo](https://img.youtube.com/vi/SZE5E_Sm2EE/0.jpg)](https://youtu.be/SZE5E_Sm2EE)
+
 
 ### 📹 Complete Walkthrough
 > **Full Tutorial**: [Watch on YouTube](LINK_A_TU_VIDEO_AQUI)

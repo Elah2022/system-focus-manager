@@ -453,11 +453,11 @@ class ConfigWindow(QDialog):
             ultra_layout.addSpacing(10)
         else:
             # In Ultra Focus mode: only show configuration directly
-            ultra_group = QGroupBox("Configuración de Ultra Focus")
+            ultra_group = QGroupBox(lang.get('ultra_focus_config_title'))
             ultra_group.setFont(QFont('Arial', 10, QFont.Bold))
             ultra_layout = QVBoxLayout()
 
-            ultra_explanation = QLabel("Concentración extrema: Un solo navegador, un solo dominio, sin escapatorias.")
+            ultra_explanation = QLabel(lang.get('ultra_focus_config_subtitle'))
             ultra_explanation.setFont(QFont('Arial', 9))
             ultra_explanation.setStyleSheet("color: #7f8c8d;")
             ultra_explanation.setWordWrap(True)
