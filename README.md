@@ -6,7 +6,7 @@
 ![Focus Manager](https://img.shields.io/badge/Platform-Windows-blue)
 ![Python](https://img.shields.io/badge/Python-3.8+-green)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
-![Author](https://img.shields.io/badge/Author-Manuela%20Riascos-purple)
+![Author](https://img.shields.io/badge/Author-Manuela%20Riascos%20Hurtado-purple)
 
 ---
 
@@ -15,7 +15,7 @@
 System Focus Manager is a desktop application that helps you maintain focus by:
 - 🚫 Blocking distracting applications
 - 🌐 Controlling browser access with whitelists
-- 🔒 Ultra Focus mode for extreme concentration
+- 🔒 Ultra Focus Mode – An exam-grade concentration lock, perfect for college exams, finals, and critical study sessions where discipline is mandatory.
 - 📊 Tracking your productivity statistics
 - 🔐 PIN protection to prevent bypassing focus modes
 
@@ -23,17 +23,11 @@ System Focus Manager is a desktop application that helps you maintain focus by:
 
 ## 📸 Screenshots
 
-### Main Interface
-![Main Interface](docs/screenshots/main-interface.png)
+![Main Interface](system_focus_manager/docs/screenshots/main-interface.png)
+![Focus Mode](system_focus_manager/docs/screenshots/focus-mode.png)
+![Ultra Focus](system_focus_manager/docs/screenshots/ultra-focus.png)
+![Statistics](system_focus_manager/docs/screenshots/statistics.png)
 
-### Focus Mode Active
-![Focus Mode](docs/screenshots/focus-mode.png)
-
-### Ultra Focus Mode
-![Ultra Focus](docs/screenshots/ultra-focus.png)
-
-### Statistics Dashboard
-![Statistics](docs/screenshots/statistics.png)
 
 ---
 
