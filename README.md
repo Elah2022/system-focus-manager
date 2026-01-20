@@ -64,7 +64,7 @@ System Focus Manager is a desktop application that helps you maintain focus by:
 </p>
 
 
-## 🎬 Demo Videos
+## 🎬 Demo Video
 
 
 <p align="center">
