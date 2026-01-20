@@ -539,7 +539,6 @@ class FocusManagerGUI(QMainWindow):
 
         # Variables for Ultra Focus Mode
         self.ultra_focus_active = False
-        self.keyboard_blocker = None  # Initialized whon activating Ultra Focus
 
         # Save main process PID for protection
         self.main_pid = os.getpid()
@@ -778,10 +777,11 @@ class FocusManagerGUI(QMainWindow):
             self.deactivate_mode()
             return
 
-        # If parental mode is active and there's an active mode, request PIN
-        if self.current_mode and self.pin_manager.is_parental_mode():
-            if not self.verify_pin_access("change mode"):
-                return  # Incorrect PIN, don't change
+        # NEW: If parental mode is active, ALWAYS request PIN to activate ANY mode
+        # This prevents users from closing the app and reactivating without supervisor knowing
+        if self.pin_manager.is_parental_mode():
+            if not self.verify_pin_access("activate mode"):
+                return  # Incorrect PIN, don't activate
 
         # If there's already an active mode, deactivate it first
         if self.current_mode:
@@ -2633,7 +2633,7 @@ class FocusManagerGUI(QMainWindow):
                 check_svg.setFixedSize(20, 20)
                 pin_status_layout.addWidget(check_svg)
 
-            pin_status_label = QLabel("PIN configurado")
+            pin_status_label = QLabel(lang.get('pin_configured'))
             pin_status_label.setFont(QFont('Arial', 10, QFont.Bold))
             pin_status_label.setStyleSheet("color: #FDFDFD;")
             pin_status_layout.addWidget(pin_status_label)
@@ -2787,15 +2787,6 @@ class FocusManagerGUI(QMainWindow):
         ultra_settings = mode_data.get('ultra_focus_settings', {})
 
         # Activate bloqueo de teclado
-        if ultra_settings.get('block_all_shortcuts', True):
-            from keyboard_blocker import KeyboardBlocker
-            self.keyboard_blocker = KeyboardBlocker(
-                logger=self.logger,
-                on_block_callback=self._on_shortcut_blocked
-            )
-            self.keyboard_blocker.activate()
-            self.logger.info(f"Bloqueo de atajos de teclado activado")
-
         # Determine domain to block
         use_current = ultra_settings.get('use_current_domain', False)
         locked_domain = ultra_settings.get('locked_domain', '')
@@ -3165,12 +3156,6 @@ class FocusManagerGUI(QMainWindow):
         for port, monitor in self.browser_monitors.items():
             monitor.stop()
             self.logger.info(f"🔓 Browser monitor stopped (port {port})")
-
-        # Deactivate keyboard blocking
-        if self.keyboard_blocker:
-            self.keyboard_blocker.deactivate()
-            self.keyboard_blocker = None
-            self.logger.info("🔓 Bloqueo de atajos de teclado desactivado")
 
         # Deactivate browser lockdown
         for port, controller in self.browser_controllers.items():

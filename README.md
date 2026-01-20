@@ -23,38 +23,49 @@ System Focus Manager is a desktop application that helps you maintain focus by:
 
 ## 📸 Screenshots
 
-<h3 align="center">Clean and intuitive dashboard to manage your focus sessions</h3>
+<h3 align="center">System Focus Manager main interface</h3>
 <p align="center">
   <img src="system_focus_manager/docs/screenshots/main-interface.png">
 </p>
 
 <h3 align="center">Focus Mode with selective app blocking and browser control</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/focus-mode.png">
+  <img src="system_focus_manager/docs/screenshots/focus.png">
 </p>
 
-<h3 align="center">Ultra Focus configuration - lock yourself to one domain for maximum concentration</h3>
+<h3 align="center">Ideal for virtual exams – Ultra Focus limits your access to a single domain for maximum concentration</h3>
 <p align="center">
   <img src="system_focus_manager/docs/screenshots/ultra-focus.png">
 </p>
 
-<h3 align="center">Track your productivity with detailed statistics and session history</h3>
+<h3 align="center">Choose your preferred browser for Focus sessions</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/statistics.png">
+  <img src="system_focus_manager/docs/screenshots/choose browser.png">
+</p>
+
+<h3 align="center">Control which websites are allowed during Focus Mode</h3>
+<p align="center">
+  <img src="system_focus_manager/docs/screenshots/allowed-websites.png">
+</p>
+
+<h3 align="center">Set timers to automatically deactivate modes after a specific duration. The mode cannot be disabled until the timer ends, unless the user enters the PIN</h3>
+<p align="center">
+  <img src="system_focus_manager/docs/screenshots/timer.png">
+</p>
+
+<h3 align="center">PIN protection ensures focus modes cannot be bypassed</h3>
+<p align="center">
+  <img src="system_focus_manager/docs/screenshots/pin.png">
+</p>
+
+<h3 align="center">The audit trail allows you to detect whether the monitored user abruptly closed the program in any way, whether by restarting the PC or force-closing it through the task manager</h3>
+<p align="center">
+  <img src="system_focus_manager/docs/screenshots/audit.png">
 </p>
 
 
----
-
 ## 🎬 Demo Videos
 
-### 📹 How Focus Mode Works
-![Focus Mode Demo](docs/demos/focus-mode-demo.gif)
-
-> **Video Tutorial**: [Watch on YouTube](LINK_A_TU_VIDEO_AQUI)
-
-### 📹 Ultra Focus in Action
-![Ultra Focus Demo](docs/demos/ultra-focus-demo.gif)
 
 <p align="center">
   <a href="https://youtu.be/SZE5E_Sm2EE">
@@ -62,13 +73,6 @@ System Focus Manager is a desktop application that helps you maintain focus by:
   </a>
 </p>
 
-
-
-### 📹 Complete Walkthrough
-> **Full Tutorial**: [Watch on YouTube](LINK_A_TU_VIDEO_AQUI)
-> This video covers installation, configuration, and all features.
-
----
 
 ## ✨ Features
 
@@ -82,10 +86,12 @@ System Focus Manager is a desktop application that helps you maintain focus by:
 ### 🔐 Ultra Focus Mode
 - **Extreme concentration mode** - locks you to a single domain
 - Only ONE browser allowed
-- Blocks ALL keyboard shortcuts (Alt+Tab, Win, Ctrl+Shift+Esc, etc.)
 - Automatically closes unauthorized applications
-- Requires PIN to exit
-- Domain lockdown (e.g., only github.com)
+- **Cannot close the program** - Task Manager force-close is logged in audit trail
+- **Requires PIN to exit** - Ensures the supervisor knows if the user exited
+- **Audit trail monitoring** - Detects if program was force-closed or PC restarted
+- Domain lockdown (e.g., only github.com for exams)
+- **Anti-bypass protection** - Any exit attempt is permanently recorded
 
 ### 📊 Statistics
 - Track time spent in each mode
@@ -95,10 +101,12 @@ System Focus Manager is a desktop application that helps you maintain focus by:
 - Export data for analysis
 
 ### 🔒 Security
-- PIN protection for parental control
+- **PIN protection for parental control** - requires PIN to both activate AND deactivate modes
+- **Anti-bypass detection** - if user closes and reopens the app, they cannot activate modes without PIN
+- **Supervisor verification** - ensures supervisor knows if the monitored user exited the program
 - Encrypted PIN storage
 - Security questions for PIN recovery
-- Audit logging of all actions
+- Audit logging of all actions with tamper detection
 
 ---
 
@@ -128,19 +136,6 @@ python main.py
 ```
 
 ---
-
-## 📦 Build Executable
-
-To create a standalone executable:
-
-```bash
-cd system_focus_manager
-pyinstaller --name="FocusManager" --windowed --onefile --icon=icons/logo.ico main.py
-```
-
-The executable will be in the `dist/` folder.
-
--------
 
 ## 🎮 Usage
 
@@ -188,7 +183,6 @@ The application uses Chrome DevTools Protocol to control browser tabs:
 - **Process Management**: psutil
 - **Browser Control**: Chrome DevTools Protocol (websocket)
 - **Database**: SQLite
-- **Keyboard Blocking**: keyboard library
 
 ---
 
@@ -205,8 +199,7 @@ system_focus_manager/
 ├── _watermark.py           # Copyright protection
 ├── browser_focus/          # Browser control modules
 │   ├── controller.py       # Chrome DevTools Protocol
-│   ├── monitor.py          # Browser monitoring
-│   └── keyboard_blocker.py # Keyboard shortcut blocking
+│   └── monitor.py          # Browser monitoring
 ├── modes/                  # Mode configurations
 │   ├── focus.json
 │   └── ultra_focus.json
@@ -228,20 +221,9 @@ system_focus_manager/
 
 - `locked_domain`: Single allowed domain (e.g., "github.com")
 - `selected_browser`: Browser to use (chrome/brave/edge)
-- `block_all_shortcuts`: Block all keyboard shortcuts
 - `require_pin_to_close_app`: Prevent closing without PIN
 
 ---
-
-## 🤝 Contributing
-
-Contributions are welcome! Please:
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
 
 **⚠️ IMPORTANT**: All contributions must maintain copyright attribution to the original author (Manuela Riascos Hurtado).
 

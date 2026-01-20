@@ -6,7 +6,6 @@
   "ultra_focus_settings": {
     "locked_domain": "github.com",
     "selected_browser": "chrome",
-    "block_all_shortcuts": true,
     "require_pin_to_close_app": true,
     "log_escape_attempts": true,
     "allow_subdomain_navigation": true
