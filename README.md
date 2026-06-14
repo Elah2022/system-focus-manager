@@ -1,4 +1,3 @@
-````md
 <h1 align="center">⚡ System Focus Manager</h1>
 
 <p align="center">
@@ -302,4 +301,4 @@ If you find this project useful:
 Built and maintained by <strong>Manuela Riascos Hurtado</strong><br>
 Python • PySide6 • psutil • Chrome DevTools Protocol
 </p>
-```
+
