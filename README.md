@@ -23,42 +23,42 @@
 
 <h3 align="center">Main Interface</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/main-interface.png" width="900">
+  <img src="system_focus_manager/docs/screenshots/main-interface.png" width="700" alt="Main Interface">
 </p>
 
 <h3 align="center">Focus Mode - Application Blocking and Browser Control</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/focus.png" width="900">
+  <img src="system_focus_manager/docs/screenshots/focus.png" width="700" alt="Focus Mode">
 </p>
 
 <h3 align="center">Ultra Focus Mode - Single Domain Lockdown</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/ultra-focus.png" width="900">
+  <img src="system_focus_manager/docs/screenshots/ultra-focus.png" width="700" alt="Ultra Focus Mode">
 </p>
 
 <h3 align="center">Browser Selection</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/choose browser.png" width="900">
+  <img src="system_focus_manager/docs/screenshots/choose browser.png" width="700" alt="Browser Selection">
 </p>
 
 <h3 align="center">Website Whitelist Configuration</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/allowed-websites.png" width="900">
+  <img src="system_focus_manager/docs/screenshots/allowed-websites.png" width="700" alt="Website Whitelist Configuration">
 </p>
 
 <h3 align="center">Session Timer</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/timer.png" width="900">
+  <img src="system_focus_manager/docs/screenshots/timer.png" width="700" alt="Session Timer">
 </p>
 
 <h3 align="center">PIN Protection</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/pin.png" width="900">
+  <img src="system_focus_manager/docs/screenshots/pin.png" width="700" alt="PIN Protection">
 </p>
 
 <h3 align="center">Tamper-Evident Audit Log</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/audit.png" width="900">
+  <img src="system_focus_manager/docs/screenshots/audit.png" width="700" alt="Audit Log">
 </p>
 
 ---
@@ -67,9 +67,12 @@
 
 <p align="center">
   <a href="https://youtu.be/SZE5E_Sm2EE">
-    <img src="https://img.youtube.com/vi/SZE5E_Sm2EE/0.jpg" alt="Ultra Focus Mode Demo">
+    <img src="https://img.youtube.com/vi/SZE5E_Sm2EE/0.jpg" width="700" alt="Ultra Focus Mode Demo">
   </a>
 </p>
+
+---
+
 
 ---
 
