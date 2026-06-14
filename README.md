@@ -1,294 +1,305 @@
-<h1 align="center">🎯 System Focus Manager</h1>
+````md
+<h1 align="center">⚡ System Focus Manager</h1>
 
-> **Copyright © 2025 Manuela Riascos Hurtado**
-> A powerful productivity tool to help you stay focused by blocking distractions on Windows.
+<p align="center">
+  <strong>Advanced productivity application with process control and browser domain locking for Windows.</strong>
+</p>
 
-![Focus Manager](https://img.shields.io/badge/Platform-Windows-blue)
-![Python](https://img.shields.io/badge/Python-3.8+-green)
-![License](https://img.shields.io/badge/License-MIT-yellow)
-![Author](https://img.shields.io/badge/Author-Manuela%20Riascos%20Hurtado-purple)
+<p align="center">
+  A powerful desktop application built with Python and PySide6 that helps you maintain focus by blocking distractions, managing applications, and enforcing time-based work sessions.
+</p>
 
----
-
-## 📖 Overview
-
-System Focus Manager is a desktop application that helps you maintain focus by:
-- 🚫 Blocking distracting applications
-- 🌐 Controlling browser access with whitelists
-- 🔒 Ultra Focus Mode – An exam-grade concentration lock, perfect for college exams, finals, and critical study sessions where discipline is mandatory.
-- 📊 Tracking your productivity statistics
-- 🔐 PIN protection to prevent bypassing focus modes
+<p align="center">
+  <img src="https://img.shields.io/badge/Platform-Windows-blue" alt="Windows">
+  <img src="https://img.shields.io/badge/Python-3.8+-green" alt="Python">
+  <img src="https://img.shields.io/badge/GUI-PySide6-purple" alt="PySide6">
+  <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT">
+  <img src="https://img.shields.io/badge/Tests-Available-brightgreen" alt="Tests">
+  <img src="https://img.shields.io/badge/Author-Manuela%20Riascos%20Hurtado-orange" alt="Author">
+</p>
 
 ---
 
 ## 📸 Screenshots
 
-<h3 align="center">System Focus Manager main interface</h3>
+<h3 align="center">Main Interface</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/main-interface.png">
+  <img src="system_focus_manager/docs/screenshots/main-interface.png" width="900">
 </p>
 
-<h3 align="center">Focus Mode with selective app blocking and browser control</h3>
+<h3 align="center">Focus Mode - Application Blocking and Browser Control</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/focus.png">
+  <img src="system_focus_manager/docs/screenshots/focus.png" width="900">
 </p>
 
-<h3 align="center">Ideal for virtual exams – Ultra Focus limits your access to a single domain for maximum concentration</h3>
+<h3 align="center">Ultra Focus Mode - Single Domain Lockdown</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/ultra-focus.png">
+  <img src="system_focus_manager/docs/screenshots/ultra-focus.png" width="900">
 </p>
 
-<h3 align="center">Choose your preferred browser for Focus sessions</h3>
+<h3 align="center">Browser Selection</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/choose browser.png">
+  <img src="system_focus_manager/docs/screenshots/choose browser.png" width="900">
 </p>
 
-<h3 align="center">Control which websites are allowed during Focus Mode</h3>
+<h3 align="center">Website Whitelist Configuration</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/allowed-websites.png">
+  <img src="system_focus_manager/docs/screenshots/allowed-websites.png" width="900">
 </p>
 
-<h3 align="center">Set timers to automatically deactivate modes after a specific duration. The mode cannot be disabled until the timer ends, unless the user enters the PIN</h3>
+<h3 align="center">Session Timer</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/timer.png">
+  <img src="system_focus_manager/docs/screenshots/timer.png" width="900">
 </p>
 
-<h3 align="center">PIN protection ensures focus modes cannot be bypassed</h3>
+<h3 align="center">PIN Protection</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/pin.png">
+  <img src="system_focus_manager/docs/screenshots/pin.png" width="900">
 </p>
 
-<h3 align="center">The audit trail allows you to detect whether the monitored user abruptly closed the program in any way, whether by restarting the PC or force-closing it through the task manager</h3>
+<h3 align="center">Tamper-Evident Audit Log</h3>
 <p align="center">
-  <img src="system_focus_manager/docs/screenshots/audit.png">
+  <img src="system_focus_manager/docs/screenshots/audit.png" width="900">
 </p>
 
+---
 
 ## 🎬 Demo Video
 
-
 <p align="center">
   <a href="https://youtu.be/SZE5E_Sm2EE">
-    <img src="https://img.youtube.com/vi/SZE5E_Sm2EE/0.jpg" alt="Ultra Focus Mode – Exam-Grade Lockdown Demo">
+    <img src="https://img.youtube.com/vi/SZE5E_Sm2EE/0.jpg" alt="Ultra Focus Mode Demo">
   </a>
 </p>
 
+---
 
-## ✨ Features
+# ✨ Features
 
-### 🎯 Focus Mode
-- Block specific applications
-- Whitelist allowed applications
-- Browser control with URL whitelisting
-- Automatic reopening of closed browsers
-- Session statistics tracking
+## 🔐 Ultra Focus Mode
 
-### 🔐 Ultra Focus Mode
-- **Extreme concentration mode** - locks you to a single domain
-- Only ONE browser allowed
-- Automatically closes unauthorized applications
-- **Cannot close the program** - Task Manager force-close is logged in audit trail
-- **Requires PIN to exit** - Ensures the supervisor knows if the user exited
-- **Audit trail monitoring** - Detects if program was force-closed or PC restarted
-- Domain lockdown (e.g., only github.com for exams)
-- **Anti-bypass protection** - Any exit attempt is permanently recorded
+- Lock browser to a single domain
+- Automatic closure of unauthorized applications
+- Browser forced into fullscreen
+- Only one selected browser allowed (Chrome, Brave, or Edge)
+- PIN-protected exit
+- Tamper-evident audit logging
 
-### 📊 Statistics
-- Track time spent in each mode
-- Monitor blocked applications
-- View session history
-- Audit log of all events
-- Export data for analysis
+## 🎯 Focus Mode
 
-### 🔒 Security
-- **PIN protection for parental control** - requires PIN to both activate AND deactivate modes
-- **Anti-bypass detection** - if user closes and reopens the app, they cannot activate modes without PIN
-- **Supervisor verification** - ensures supervisor knows if the monitored user exited the program
-- Encrypted PIN storage
-- Security questions for PIN recovery
-- Audit logging of all actions with tamper detection
+- Block distracting applications
+- Application whitelist support
+- Browser monitoring and restrictions
+- Customizable application rules
+- Real-time statistics tracking
+
+## 🍅 Pomodoro Timer
+
+- Configurable work and break intervals
+- Multiple cycles with automatic transitions
+- Visual and notification alerts
+- Automatic mode deactivation
+
+## ⏱️ Session Timer
+
+- Custom time limits
+- Automatic deactivation
+- Real-time countdown display
+
+## 👨‍👩‍👧 Parental Controls
+
+- PIN-protected settings and mode changes
+- Prevent unauthorized deactivation
+- Supervisor verification
+- Secure PIN hashing and audit logging
 
 ---
 
-## 🚀 Installation
+# 🚀 Installation
 
-### Prerequisites
-- Windows 10/11
-- Python 3.8 or higher
+## From Release (Recommended)
 
-### Steps
+1. Download the latest release from GitHub Releases.
+2. Run `focus-manager.exe`.
+3. Grant necessary permissions when prompted.
 
-1. **Clone this repository:**
+> Windows Defender may flag the executable because it is unsigned. Click **More info → Run anyway** to continue.
+
+## From Source
+
 ```bash
 git clone https://github.com/Elah2022/system-focus-manager.git
 cd system-focus-manager
-```
-
-2. **Install dependencies:**
-```bash
-cd system_focus_manager
 pip install -r requirements.txt
-```
-
-3. **Run the application:**
-```bash
+cd system_focus_manager
 python main.py
-```
+````
+
+### Prerequisites
+
+* Windows 10/11
+* Python 3.8+
 
 ---
 
-## 🎮 Usage
+# 📖 Usage
 
-### Activating Focus Mode
+## Quick Start
 
-1. Launch System Focus Manager
-2. Click on "Focus" or "Ultra Focus" button
-3. Enter PIN if required (strict mode)
-4. The mode will activate and start monitoring
+1. Launch the application.
+2. Configure a mode.
+3. Activate Focus or Ultra Focus.
+4. Use Pomodoro or Session Timer.
+5. Stay focused while the application enforces your rules.
+6. Deactivate the mode (PIN may be required).
 
-### Configuring Modes
+## Ultra Focus Setup
 
-Edit the JSON files in `modes/` folder:
-- `focus.json` - Focus mode configuration
-- `ultra_focus.json` - Ultra Focus mode configuration
+1. Click **⚙️ Configure** on Ultra Focus.
+2. Enter the allowed domain (example: `github.com`).
+3. Select the browser.
+4. Save and activate.
 
-Example configuration:
-```json
-{
-  "name": "Focus",
-  "allowed_apps": [
-    "chrome.exe",
-    "Code.exe",
-    "notepad.exe"
-  ],
-  "close": [
-    "Discord.exe",
-    "Spotify.exe"
-  ]
-}
-```
+## PIN Protection
 
-### Browser Control
-
-The application uses Chrome DevTools Protocol to control browser tabs:
-- Automatically opens browsers in debug mode
-- Closes unauthorized tabs
-- Enforces domain restrictions in Ultra Focus
+1. Open **PIN Settings**.
+2. Create a four-digit PIN.
+3. Enable Parental Mode if desired.
+4. PIN verification is required to modify or deactivate protected settings.
 
 ---
 
-## 🛠️ Technology Stack
+# 🏗️ Architecture
 
-- **GUI**: PySide6 (Qt)
-- **Process Management**: psutil
-- **Browser Control**: Chrome DevTools Protocol (websocket)
-- **Database**: SQLite
+## Technology Stack
 
----
+* GUI: PySide6 (Qt6)
+* Browser Control: Chrome DevTools Protocol
+* Process Management: psutil
+* Security: PBKDF2-HMAC-SHA256 + HMAC-signed audit log
 
-## 📁 Project Structure
+## Project Structure
 
-```
+```text
 system_focus_manager/
-├── main.py                 # Entry point
-├── gui.py                  # Main GUI interface
-├── launcher.py             # Application launcher
-├── process_manager.py      # Process control
-├── stats.py                # Statistics tracking
-├── pin_manager.py          # PIN management
-├── _watermark.py           # Copyright protection
-├── browser_focus/          # Browser control modules
-│   ├── controller.py       # Chrome DevTools Protocol
-│   └── monitor.py          # Browser monitoring
-├── modes/                  # Mode configurations
+├── browser_focus/
+│   ├── __init__.py
+│   ├── chrome_finder.py
+│   ├── controller.py
+│   ├── monitor.py
+│   ├── multi_browser.py
+│   └── rules.json
+├── docs/screenshots/
+├── icons/
+├── modes/
 │   ├── focus.json
 │   └── ultra_focus.json
-└── icons/                  # Application icons
+├── scripts/
+│   └── check_audit.py
+├── tests/
+├── _watermark.py
+├── about_dialog.py
+├── browser_whitelist_window.py
+├── config_window.py
+├── gui.py
+├── launcher.py
+├── logger.py
+├── main.py
+├── pin_dialog.py
+├── pin_manager.py
+├── process_manager.py
+├── requirements-dev.txt
+├── requirements.txt
+├── settings.json
+├── settings_manager.py
+├── stats_manager.py
+├── stats_window.py
+├── stats_window_new.py
+├── system_tray.py
+├── translations.py
+├── LICENSE
+├── NOTICE
+└── README.md
 ```
 
 ---
 
-## 🔧 Configuration
+# 🔒 Security
 
-### Focus Mode Settings
-
-- `allowed_apps`: List of allowed applications
-- `close`: Applications to close on activation
-- `strict_mode`: Requires PIN to deactivate
-- `whitelist_enabled`: Enable browser URL whitelist
-
-### Ultra Focus Settings
-
-- `locked_domain`: Single allowed domain (e.g., "github.com")
-- `selected_browser`: Browser to use (chrome/brave/edge)
-- `require_pin_to_close_app`: Prevent closing without PIN
+* PBKDF2-HMAC-SHA256 PIN hashing with random salt
+* PIN-protected parental mode
+* Unauthorized application termination in Ultra Focus Mode
+* HMAC-chained audit logs capable of detecting edits, deletions and entry reordering
 
 ---
 
-**⚠️ IMPORTANT**: All contributions must maintain copyright attribution to the original author (Manuela Riascos Hurtado).
+# 📊 Statistics
+
+The application tracks:
+
+* Total time spent in each mode
+* Number of sessions
+* Blocked applications
+* Historical sessions with timestamps
 
 ---
 
-## 📝 License
+# 🧪 Testing
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-**Attribution Requirements:**
-- You MUST keep all copyright notices
-- You MUST credit Manuela Riascos Hurtado as the original author
-- You MUST include a link to this repository
-
-See [NOTICE](NOTICE) file for complete legal information.
+```bash
+pytest
+```
 
 ---
 
-## 👤 Author
+# 🛠️ Building Executable
+
+```bash
+pip install pyinstaller
+pyinstaller --onefile --windowed --icon=assets/icon.ico main.py
+```
+
+Output:
+
+```text
+dist/main.exe
+```
+
+---
+
+# 🗺️ Roadmap
+
+* [ ] Improve system tray experience
+* [ ] Dark theme
+* [ ] Export statistics (CSV)
+* [ ] Preset configurations
+* [ ] Sound notifications
+* [ ] Cross-platform support
+
+---
+
+# 👤 Author
 
 **Manuela Riascos Hurtado**
-- GitHub: [@Elah2022](https://github.com/Elah2022)
-- Email: manhurta54@gmail.com
-- Project: [system-focus-manager](https://github.com/Elah2022/system-focus-manager)
+
+* GitHub: https://github.com/Elah2022
+* Portfolio: https://manuelariascos.vercel.app
+* Email: [manhurta54@gmail.com](mailto:manhurta54@gmail.com)
 
 ---
 
 ## ⭐ Support
 
 If you find this project useful:
-- ⭐ Star this repository
-- 🐛 Report bugs or request features
-- 💰 Consider sponsoring development
-- 📧 Send feedback to manhurta54@gmail.com
+
+* ⭐ Star this repository
+* 🐛 Report bugs and request features
+* 💡 Share feedback and suggestions
 
 ---
 
-## 🙏 Acknowledgments
-
-- Chrome DevTools Protocol for browser control
-- PySide6 for the excellent Qt bindings
-- psutil for process management capabilities
-- The open-source community
-
----
-
-## ⚠️ Disclaimer
-
-This software is provided "as is" without warranty. Use responsibly and ensure you have appropriate permissions when using process control features.
-
----
-
-## 📜 Copyright Notice
-
+<p align="center">
+Built and maintained by <strong>Manuela Riascos Hurtado</strong><br>
+Python • PySide6 • psutil • Chrome DevTools Protocol
+</p>
 ```
-Copyright © 2025 Manuela Riascos Hurtado
-All Rights Reserved
-
-Original Author: Manuela Riascos Hurtado
-Email: manhurta54@gmail.com
-GitHub: https://github.com/Elah2022
-```
-
-**Unauthorized removal of copyright notices is prohibited.**
-
----
-
-Made with ❤️ by Manuela Riascos Hurtado
