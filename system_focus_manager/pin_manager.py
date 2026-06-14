@@ -4,8 +4,10 @@ I encrypt the PIN with SHA-256 to make it secure.
 """
 
 import hashlib
+import hmac
 import json
 import os
+import secrets
 from pathlib import Path
 from typing import Optional
 
@@ -49,9 +51,54 @@ class PINManager:
             print(f"Error guardando config: {e}")
             return False
 
+    # PBKDF2 parameters for PIN / security-answer hashing
+    PBKDF2_ALGORITHM = 'sha256'
+    PBKDF2_ITERATIONS = 200_000
+    PBKDF2_PREFIX = 'pbkdf2_sha256'
+
     def hash_pin(self, pin: str) -> str:
-        """Encrypt PIN with SHA-256 for security"""
-        return hashlib.sha256(pin.encode()).hexdigest()
+        """
+        Hash a PIN (or security answer) with PBKDF2-HMAC-SHA256 and a random
+        per-hash salt. This is slow on purpose, which makes brute-forcing a
+        4-digit PIN far harder than a plain SHA-256 digest.
+
+        Format: pbkdf2_sha256$<iterations>$<salt_hex>$<hash_hex>
+        """
+        salt = secrets.token_bytes(16)
+        dk = hashlib.pbkdf2_hmac(
+            self.PBKDF2_ALGORITHM, pin.encode('utf-8'), salt, self.PBKDF2_ITERATIONS
+        )
+        return f"{self.PBKDF2_PREFIX}${self.PBKDF2_ITERATIONS}${salt.hex()}${dk.hex()}"
+
+    def _verify_hash(self, plain: str, stored: Optional[str]) -> bool:
+        """
+        Verify a plaintext value against a stored hash, using a constant-time
+        comparison. Supports the new PBKDF2 format AND the legacy plain
+        SHA-256 format so PINs created before the upgrade keep working.
+        """
+        if not stored:
+            return False
+
+        # New PBKDF2 format
+        if stored.startswith(self.PBKDF2_PREFIX + '$'):
+            try:
+                _, iterations, salt_hex, hash_hex = stored.split('$')
+                salt = bytes.fromhex(salt_hex)
+                expected = bytes.fromhex(hash_hex)
+                dk = hashlib.pbkdf2_hmac(
+                    self.PBKDF2_ALGORITHM, plain.encode('utf-8'), salt, int(iterations)
+                )
+                return hmac.compare_digest(dk, expected)
+            except (ValueError, TypeError):
+                return False
+
+        # Legacy format: plain SHA-256 hex digest (64 chars)
+        legacy = hashlib.sha256(plain.encode('utf-8')).hexdigest()
+        return hmac.compare_digest(legacy, stored)
+
+    def _is_legacy_hash(self, stored: Optional[str]) -> bool:
+        """True if the stored hash uses the old insecure SHA-256 format."""
+        return bool(stored) and not stored.startswith(self.PBKDF2_PREFIX + '$')
 
     def set_pin(self, pin: str, security_questions: list = None) -> bool:
         """
@@ -89,7 +136,15 @@ class PINManager:
         if not self.config['pin_hash']:
             return True
 
-        return self.hash_pin(pin) == self.config['pin_hash']
+        if not self._verify_hash(pin, self.config['pin_hash']):
+            return False
+
+        # Transparently upgrade a legacy SHA-256 PIN to PBKDF2 on success
+        if self._is_legacy_hash(self.config['pin_hash']):
+            self.config['pin_hash'] = self.hash_pin(pin)
+            self.save_config()
+
+        return True
 
     def remove_pin(self):
         """Remove PIN (disable protection)"""
@@ -156,8 +211,7 @@ class PINManager:
             if question not in answers:
                 return False
 
-            answer_hash = self.hash_pin(answers[question].lower().strip())
-            if answer_hash != qa['answer_hash']:
+            if not self._verify_hash(answers[question].lower().strip(), qa['answer_hash']):
                 return False
 
         return True
@@ -179,8 +233,7 @@ class PINManager:
             if question in answers:
                 answer = answers[question]
                 if answer and answer.strip():  # Only check non-empty answers
-                    answer_hash = self.hash_pin(answer.lower().strip())
-                    if answer_hash == qa['answer_hash']:
+                    if self._verify_hash(answer.lower().strip(), qa['answer_hash']):
                         return True  # Found a correct answer
 
         return False  # No correct answers found
@@ -190,15 +243,15 @@ class PINManager:
         if not self.has_security_question():
             return False
 
-        answer_hash = self.hash_pin(answer.lower().strip())
+        clean = answer.lower().strip()
 
         # Try new format first
         questions = self.config.get('security_questions', [])
         if questions:
-            return answer_hash == questions[0]['answer_hash']
+            return self._verify_hash(clean, questions[0]['answer_hash'])
 
         # Fallback to old format
-        return answer_hash == self.config.get('security_answer_hash')
+        return self._verify_hash(clean, self.config.get('security_answer_hash'))
 
     def reset_pin_with_security_answers(self, new_pin: str, answers: dict) -> bool:
         """Reset PIN using all security answers"""

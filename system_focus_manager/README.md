@@ -10,11 +10,11 @@ A powerful desktop application built with Python and PySide6 that helps you main
 
 ### 🔐 **Ultra Focus Mode**
 Maximum concentration mode with extreme restrictions:
-- Lock browser to a single domain
-- Block keyboard shortcuts (Ctrl+T, Ctrl+W, Alt+F4, etc.)
-- Automatic closure of unauthorized applications
+- Lock browser to a single domain (any other site is redirected back)
+- Automatic closure of unauthorized applications, including Task Manager at the same privilege level
+- Browser forced into fullscreen
 - Only one selected browser allowed (Chrome/Brave/Edge)
-- PIN-protected exit
+- PIN-protected exit; any forced closure is recorded in a tamper-evident audit log
 
 ### 🎯 **Focus Mode**
 Balanced productivity mode:
@@ -107,8 +107,7 @@ python main.py
 - GUI: PySide6 (Qt6)
 - Browser Control: Chrome DevTools Protocol
 - Process Management: psutil
-- Keyboard Blocking: keyboard library
-- Security: hashlib (PIN hashing)
+- Security: PBKDF2-HMAC-SHA256 (PIN hashing) + HMAC-signed audit log
 
 **Key Components:**
 ```
@@ -127,10 +126,10 @@ system_focus_manager/
 
 ## 🔒 Security
 
-- **PIN Protection:** 4-digit SHA-256 hashed
-- **Parental Mode:** Prevents bypass
-- **Process Protection:** Resists task manager termination
-- **Keyboard Blocking:** Prevents shortcut escapes
+- **PIN Protection:** PBKDF2-HMAC-SHA256 with a random per-PIN salt
+- **Parental Mode:** PIN required to deactivate or change settings
+- **Process Control:** Closes unauthorized apps (including Task Manager at the same privilege level) in Ultra Focus
+- **Tamper-evident audit log:** HMAC-chained entries detect edits, deletions and reordering
 
 ---
 

@@ -1,0 +1,5 @@
+# Development / testing dependencies for System Focus Manager
+# Install with:  pip install -r requirements-dev.txt
+# Run tests with: python -m pytest
+
+pytest>=8.0.0

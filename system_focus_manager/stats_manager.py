@@ -6,9 +6,19 @@ I record how much time I spend in each mode and which apps I close.
 import json
 import sqlite3
 import os
+import hashlib
+import hmac
+import secrets
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List, Optional
+
+# Python 3.12 deprecated the implicit datetime->text adapter for sqlite3.
+# Register an explicit one that reproduces the previous default format
+# ("YYYY-MM-DD HH:MM:SS.ffffff"). This keeps stored timestamps — and the audit
+# hash chain that depends on str(timestamp) — byte-for-byte identical, while
+# silencing the deprecation warning.
+sqlite3.register_adapter(datetime, lambda val: val.isoformat(" "))
 
 
 class StatsManager:
@@ -24,7 +34,52 @@ class StatsManager:
         Path(db_path).parent.mkdir(parents=True, exist_ok=True)
 
         self.db_path = db_path
+        self._audit_key = self._load_or_create_audit_key()
         self._init_database()
+
+    def _load_or_create_audit_key(self) -> bytes:
+        """
+        Load (or create) the secret key used to sign audit-log entries.
+
+        NOTE: the key is stored locally next to the data. This raises the bar
+        against CASUAL tampering — deleting, editing or reordering rows becomes
+        detectable via verify_audit_integrity() — but a determined user with
+        the key could still re-sign a forged log. The real fix is to push the
+        log off the machine (see export_audit_log()).
+        """
+        try:
+            key_path = Path(self.db_path).parent.parent / 'config' / 'audit.key'
+            key_path.parent.mkdir(parents=True, exist_ok=True)
+            if key_path.exists():
+                return key_path.read_bytes()
+            key = secrets.token_bytes(32)
+            key_path.write_bytes(key)
+            return key
+        except Exception:
+            # Fallback: deterministic key so the app keeps working (weaker)
+            return hashlib.sha256(b'focus-manager-audit-fallback-key').digest()
+
+    def _compute_entry_hash(self, prev_hash, event_type, description,
+                            timestamp, mode_name, session_id, severity) -> str:
+        """Compute the HMAC of an audit entry, chained to the previous one."""
+        payload = '|'.join([
+            str(prev_hash),
+            str(event_type),
+            str(description),
+            str(timestamp),
+            str(mode_name),
+            str(session_id),
+            str(severity),
+        ])
+        return hmac.new(self._audit_key, payload.encode('utf-8'), hashlib.sha256).hexdigest()
+
+    def _get_last_entry_hash(self, cursor) -> str:
+        """Return the hash of the most recent audit entry (genesis if none)."""
+        cursor.execute('SELECT entry_hash FROM audit_log ORDER BY id DESC LIMIT 1')
+        row = cursor.fetchone()
+        if row and row[0]:
+            return row[0]
+        return '0' * 64  # genesis
 
     def _init_database(self):
         """Initialize SQLite database"""
@@ -55,6 +110,7 @@ class StatsManager:
         ''')
 
         # Audit log table (for detecting cheating/abrupt closures)
+        # prev_hash / entry_hash form a tamper-evident HMAC chain.
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS audit_log (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -63,9 +119,18 @@ class StatsManager:
                 timestamp TIMESTAMP NOT NULL,
                 mode_name TEXT,
                 session_id INTEGER,
-                severity TEXT DEFAULT 'normal'
+                severity TEXT DEFAULT 'normal',
+                prev_hash TEXT,
+                entry_hash TEXT
             )
         ''')
+
+        # Migrate older databases that lack the tamper-evidence columns
+        for col in ('prev_hash', 'entry_hash'):
+            try:
+                cursor.execute(f'ALTER TABLE audit_log ADD COLUMN {col} TEXT')
+            except sqlite3.OperationalError:
+                pass  # Column already exists
 
         conn.commit()
         conn.close()
@@ -362,10 +427,17 @@ class StatsManager:
         if timestamp is None:
             timestamp = datetime.now()
 
+        # Sign this entry, chained to the previous one (tamper-evidence)
+        prev_hash = self._get_last_entry_hash(cursor)
+        entry_hash = self._compute_entry_hash(
+            prev_hash, event_type, description, str(timestamp),
+            mode_name, session_id, severity
+        )
+
         cursor.execute('''
-            INSERT INTO audit_log (event_type, event_description, timestamp, mode_name, session_id, severity)
-            VALUES (?, ?, ?, ?, ?, ?)
-        ''', (event_type, description, timestamp, mode_name, session_id, severity))
+            INSERT INTO audit_log (event_type, event_description, timestamp, mode_name, session_id, severity, prev_hash, entry_hash)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (event_type, description, timestamp, mode_name, session_id, severity, prev_hash, entry_hash))
 
         if should_close:
             conn.commit()
@@ -464,3 +536,81 @@ class StatsManager:
 
         conn.commit()
         conn.close()
+
+    def verify_audit_integrity(self) -> Dict:
+        """
+        Verify the audit-log HMAC chain.
+
+        Detects entries that were edited, deleted, or reordered after being
+        recorded. Entries created before tamper-evidence existed (no hash) are
+        skipped, so upgrading an old database does not raise a false alarm.
+
+        Returns a dict:
+            {'intact': bool, 'total': int, 'checked': int,
+             'first_broken_id': Optional[int], 'reason': str}
+        """
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
+        cursor.execute('''
+            SELECT id, event_type, event_description, timestamp,
+                   mode_name, session_id, severity, prev_hash, entry_hash
+            FROM audit_log ORDER BY id ASC
+        ''')
+        rows = cursor.fetchall()
+        conn.close()
+
+        prev = '0' * 64  # genesis
+        checked = 0
+        for row in rows:
+            (rid, event_type, description, timestamp,
+             mode_name, session_id, severity, stored_prev, stored_entry) = row
+
+            # Legacy row created before tamper-evidence: skip, keep chain anchor
+            if not stored_entry:
+                continue
+
+            if stored_prev != prev:
+                return {
+                    'intact': False, 'total': len(rows), 'checked': checked,
+                    'first_broken_id': rid,
+                    'reason': 'Chain broken: an earlier entry was deleted or reordered',
+                }
+
+            expected = self._compute_entry_hash(
+                prev, event_type, description, str(timestamp),
+                mode_name, session_id, severity
+            )
+            if not hmac.compare_digest(expected, stored_entry):
+                return {
+                    'intact': False, 'total': len(rows), 'checked': checked,
+                    'first_broken_id': rid,
+                    'reason': 'An entry was modified after being recorded',
+                }
+
+            prev = stored_entry
+            checked += 1
+
+        return {
+            'intact': True, 'total': len(rows), 'checked': checked,
+            'first_broken_id': None, 'reason': 'OK',
+        }
+
+    def export_audit_log(self, export_path: str, days: int = 365) -> bool:
+        """
+        Export the audit log (plus an integrity verdict) to a JSON file.
+
+        Saving this file somewhere the monitored user cannot reach — a teacher's
+        email, a shared drive, a USB stick — is what truly protects the evidence:
+        even if stats.db is wiped locally, the supervisor keeps a signed copy.
+        """
+        try:
+            report = {
+                'generated_at': datetime.now().isoformat(),
+                'integrity': self.verify_audit_integrity(),
+                'entries': self.get_audit_log(days=days),
+            }
+            with open(export_path, 'w', encoding='utf-8') as f:
+                json.dump(report, f, indent=2, ensure_ascii=False, default=str)
+            return True
+        except Exception:
+            return False
